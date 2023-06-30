@@ -1,0 +1,34 @@
+<!Doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+</head>
+</html>
+<body>
+<div class="page-wrapper">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">My Profile</h3>
+      </div>
+      <div class="card-body">
+        <div class="mb-3">
+          <label class="form-label">Email</label>
+          <label th:text="${response.email}"></label>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">이름</label>
+          <label th:text="${response.name}"></label>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">닉네임</label>
+          <label th:text="${response.nickname}"></label>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="text-center text-muted mt-3">
+    <a href="loginform" tabindex="-1">Sign in</a>
+  </div>
+</div>
+</body>
