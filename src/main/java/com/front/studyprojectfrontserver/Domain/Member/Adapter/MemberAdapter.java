@@ -49,18 +49,16 @@ public class MemberAdapter {
      * Member의 정보를 가져옵니다.
      * 정보를 가져올 때 인증 서버의 /auth/members/{loginId} 를 통해 가져오게 됩니다.
      * @param loginRequestDto 로그인 정보를 담은 dto 입니다.
-     * @param accessToken accessToken을 검증합니다.
      * @return MemberResponseDto
      */
     public ResponseEntity<ResponseDto<MemberResonseDto>> getMemberInfo(
-            LoginRequestDto loginRequestDto,
-            String accessToken
+            LoginRequestDto loginRequestDto
     ){
         HttpHeaders httpHeaders = new HttpHeaders();
 
         URI uri = UriComponentsBuilder
-                .fromUriString(gatewayConfig.getAuthUrl())
-                .path("/auth/members/{loginId}")
+                .fromUriString(gatewayConfig.thirdUrl)
+                .path("/v1/members/{loginId}")
                 .encode()
                 .build()
                 .expand(loginRequestDto.getLoginId())
@@ -101,6 +99,32 @@ public class MemberAdapter {
                 .toUri();
 
         restTemplate.exchange(
+                uri,
+                HttpMethod.POST,
+                entity,
+                Void.class
+        );
+    }
+
+    /**
+     * Auth 서버에 토큰 재발급 요청을 하기 위한 기능입니다.
+     * @param uuid
+     * @return
+     */
+    public ResponseEntity<Void> tokenReissue(String uuid){
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.setContentType(MediaType.APPLICATION_JSON);
+        httpHeaders.add("UUID", uuid);
+
+        URI uri = UriComponentsBuilder
+                .fromUriString(gatewayConfig.getAuthUrl())
+                .path("/auth/reissue")
+                .encode()
+                .build()
+                .toUri();
+
+        HttpEntity entity = new HttpEntity<>(httpHeaders);
+        return restTemplate.exchange(
                 uri,
                 HttpMethod.POST,
                 entity,

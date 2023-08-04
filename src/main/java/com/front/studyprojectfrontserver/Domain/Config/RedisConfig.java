@@ -46,7 +46,7 @@ public class RedisConfig implements BeanClassLoaderAware {
      * Redis Connection 설정 Bean 입니다.
      *
      * @return Redis Connection 설정이 들어간 Factory
-     * @author 송학현
+     * @author 황시준
      * @since 1.0
      */
     @Bean
@@ -64,7 +64,7 @@ public class RedisConfig implements BeanClassLoaderAware {
      * Redis에 key, value 등과 관련된 연산을 하기 위해 설정합니다.
      *
      * @return Redis에 get, put 등을 하기 위한 RedisTemplate
-     * @author 송학현
+     * @author 황시준
      * @since 1.0
      */
     @Bean

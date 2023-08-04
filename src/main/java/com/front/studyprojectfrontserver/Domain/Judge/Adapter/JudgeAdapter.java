@@ -1,32 +1,28 @@
-package com.front.studyprojectfrontserver.Domain.Member.Service;
+package com.front.studyprojectfrontserver.Domain.Judge.Adapter;
 
 import com.front.studyprojectfrontserver.Domain.Config.GatewayConfig;
+import com.front.studyprojectfrontserver.Domain.Judge.Dto.ProblemRequestDto;
+import com.front.studyprojectfrontserver.Domain.Judge.Dto.ProblemResponseDto;
 import com.front.studyprojectfrontserver.Domain.Member.Dto.ResponseDto;
-import com.front.studyprojectfrontserver.Domain.Member.Dto.SignUpRequestDto;
-import com.front.studyprojectfrontserver.Domain.Member.Dto.SignUpResponseDto;
-import com.front.studyprojectfrontserver.Domain.Member.Service.inter.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.coyote.Response;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
-
-@Service
 @Slf4j
+@Component
 @RequiredArgsConstructor
-public class MemberServiceImpl implements MemberService {
+public class JudgeAdapter {
     private final GatewayConfig gatewayConfig;
     private final RestTemplate restTemplate;
-    @Override
-    public SignUpResponseDto signUp(SignUpRequestDto request) {
+    public ProblemResponseDto createProblem(ProblemRequestDto request) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        HttpEntity<SignUpRequestDto> entity = new HttpEntity<>(request, headers);
+        HttpEntity<ProblemRequestDto> entity = new HttpEntity<>(request, headers);
 
-        ResponseEntity<ResponseDto<SignUpResponseDto>> response = restTemplate.exchange(
-                gatewayConfig.thirdUrl + "/v1/members",
+        ResponseEntity<ResponseDto<ProblemResponseDto>> response = restTemplate.exchange(
+                gatewayConfig.thirdUrl + "/createProblem",
                 HttpMethod.POST,
                 entity,
                 new ParameterizedTypeReference<>() {

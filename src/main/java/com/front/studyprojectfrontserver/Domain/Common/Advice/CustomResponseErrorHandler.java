@@ -56,5 +56,6 @@ public class CustomResponseErrorHandler implements ResponseErrorHandler {
             throw new CustomGatewayException(errorMessages.toString());
         } else if (status == HttpStatus.INTERNAL_SERVER_ERROR.value()) {
             throw new CustomServerException(errorMessages.toString());
-        }    }
+        }
+    }
 }

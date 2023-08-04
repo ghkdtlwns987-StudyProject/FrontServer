@@ -22,6 +22,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
+
 public class SecurityConfig {
     private final MemberAdapter memberAdapter;
     private final RedisTemplate<String, Object> redisTemplate;
@@ -29,8 +30,12 @@ public class SecurityConfig {
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
         http.authorizeRequests()
-                        .mvcMatchers("/").authenticated()
-                        .anyRequest().permitAll();
+                .mvcMatchers("/").permitAll()
+                .mvcMatchers("/member/**").permitAll()
+                .mvcMatchers("/judge/**").authenticated()
+                .mvcMatchers("/profile/**").authenticated()
+                .mvcMatchers("/admin/**").hasRole("ADMIN");
+
         http.formLogin().loginPage("/member/login");
         http.addFilterAt(
                 customLoginProcessingFilter(),
@@ -97,5 +102,4 @@ public class SecurityConfig {
     public AuthenticationFailureHandler authenticationFailureHandler() {
         return new CustomFailureHandler();
     }
-
 }

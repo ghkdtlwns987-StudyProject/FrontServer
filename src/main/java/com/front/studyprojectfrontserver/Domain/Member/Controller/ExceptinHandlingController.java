@@ -32,6 +32,5 @@ public class ExceptinHandlingController {
             }
         }
         return new ModelAndView("common/errors/error");
-
     }
 }

@@ -7,6 +7,7 @@ import com.front.studyprojectfrontserver.Domain.Member.Adapter.MemberAdapter;
 import com.front.studyprojectfrontserver.Domain.Member.Dto.LoginRequestDto;
 import com.front.studyprojectfrontserver.Domain.Member.Dto.MemberResonseDto;
 import com.front.studyprojectfrontserver.Domain.Member.Dto.ResponseDto;
+import com.front.studyprojectfrontserver.Domain.Member.Dto.Roles;
 import com.front.studyprojectfrontserver.Domain.Member.Jwt.AuthInfo;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
@@ -27,11 +28,14 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 import static com.front.studyprojectfrontserver.Domain.Member.Jwt.AuthUtil.JWT_CODE;
 import static com.front.studyprojectfrontserver.Domain.Member.Jwt.AuthUtil.UUID_CODE;
+import static java.util.stream.Collectors.toList;
 
 
 /**
@@ -72,8 +76,7 @@ public class CustomAuthenticationManager implements AuthenticationManager {
         }
 
         ResponseEntity<ResponseDto<MemberResonseDto>> response = memberAdapter.getMemberInfo(
-                loginRequestDto,
-                accessToken
+                loginRequestDto
         );
 
         MemberResonseDto memberResonseDto = response.getBody().getData();
@@ -85,7 +88,7 @@ public class CustomAuthenticationManager implements AuthenticationManager {
         HttpServletResponse servletResponse = Objects.requireNonNull((
                 (ServletRequestAttributes) RequestContextHolder.getRequestAttributes())).getResponse();
 
-        // uuid정보를 가지고 있는 코기 입니다.
+        // uuid정보를 가지고 있는 쿠키 입니다.
         Cookie authCookie = cookieUtils.createCookieWithoutMaxAge(UUID_CODE.getValue(), uuid);
         servletResponse.addCookie(authCookie);
 
@@ -121,15 +124,10 @@ public class CustomAuthenticationManager implements AuthenticationManager {
         MemberResonseDto member = Objects.requireNonNull(memberResponseDto);
         log.info("member={}", member);
 
-        String role = "USER";
-        if (member.getRoles() == 1) {
-            role = "ADMIN";
-        }
-
-        SimpleGrantedAuthority authority = new SimpleGrantedAuthority("ROLE_" + role);
-        return Arrays.asList(authority);
+        return member.getRoles().stream()
+                .map(SimpleGrantedAuthority::new)
+                .collect(toList());
     }
-
     /**
      * Http Header에 담긴 정보를 헤더 정보를 파싱하여 accessToken을 추출합니다.
      * @param exchange

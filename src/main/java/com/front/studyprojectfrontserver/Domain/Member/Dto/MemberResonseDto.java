@@ -1,12 +1,14 @@
 package com.front.studyprojectfrontserver.Domain.Member.Dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.*;
 
 import java.util.Date;
 import java.util.List;
 
 @Getter
+@Setter
+@ToString
+@NoArgsConstructor
 @AllArgsConstructor
 public class MemberResonseDto {
     private String userId;
@@ -14,6 +16,6 @@ public class MemberResonseDto {
     private String nickname;
     private String name;
     private String phone;
-    private int roles;
+    private List<String> roles;
     private Date createAt;
 }

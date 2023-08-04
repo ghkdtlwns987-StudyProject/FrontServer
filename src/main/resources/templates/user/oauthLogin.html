@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+  <form action="/member/login" id="login-form" method="post" autocomplete="off" novalidate="">
+    <input name="loginId" id="loginId" th:value="${oauthMember.loginId}" hidden="hidden">
+    <input name="password" id="password" th:value="${oauthMember.password}" hidden="hidden">
+    <div class="form-footer">
+      <button type="submit" class="btn btn-primary w-100">Sign in</button>
+    </div>
+  </form>
+</body>
+</html>

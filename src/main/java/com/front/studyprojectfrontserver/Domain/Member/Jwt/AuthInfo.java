@@ -1,6 +1,7 @@
 package com.front.studyprojectfrontserver.Domain.Member.Jwt;
 
 import com.front.studyprojectfrontserver.Domain.Member.Dto.MemberResonseDto;
+import com.front.studyprojectfrontserver.Domain.Member.Dto.Roles;
 import lombok.*;
 
 import java.io.Serializable;
@@ -22,13 +23,13 @@ public class AuthInfo implements Serializable {
     private String loginId;
     private String email;
     private String accessToken;
-    private int authorities;
+    private List<String> authorities;
     private String expiredTime;
 
     public AuthInfo(
             MemberResonseDto memberResponseDto,
             String accessToken,
-            int authorities,
+            List<String> authorities,
             String expiredTime
     ) {
         this.loginId = memberResponseDto.getUserId();
