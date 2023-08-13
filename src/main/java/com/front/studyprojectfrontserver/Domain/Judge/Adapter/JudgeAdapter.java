@@ -22,7 +22,7 @@ public class JudgeAdapter {
         HttpEntity<ProblemRequestDto> entity = new HttpEntity<>(request, headers);
 
         ResponseEntity<ResponseDto<ProblemResponseDto>> response = restTemplate.exchange(
-                gatewayConfig.thirdUrl + "/createProblem",
+                gatewayConfig.memberUrl + "/createProblem",
                 HttpMethod.POST,
                 entity,
                 new ParameterizedTypeReference<>() {

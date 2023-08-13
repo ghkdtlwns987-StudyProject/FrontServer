@@ -1,13 +1,11 @@
 package com.front.studyprojectfrontserver.Domain.Filter;
 
 import com.front.studyprojectfrontserver.Domain.Common.CookieUtils;
-import com.front.studyprojectfrontserver.Domain.Config.RedisConfig;
 import com.front.studyprojectfrontserver.Domain.Exception.InvalidHttpHeaderException;
 import com.front.studyprojectfrontserver.Domain.Member.Adapter.MemberAdapter;
 import com.front.studyprojectfrontserver.Domain.Member.Dto.LoginRequestDto;
 import com.front.studyprojectfrontserver.Domain.Member.Dto.MemberResonseDto;
 import com.front.studyprojectfrontserver.Domain.Member.Dto.ResponseDto;
-import com.front.studyprojectfrontserver.Domain.Member.Dto.Roles;
 import com.front.studyprojectfrontserver.Domain.Member.Jwt.AuthInfo;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
@@ -27,11 +25,8 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 import static com.front.studyprojectfrontserver.Domain.Member.Jwt.AuthUtil.JWT_CODE;
 import static com.front.studyprojectfrontserver.Domain.Member.Jwt.AuthUtil.UUID_CODE;

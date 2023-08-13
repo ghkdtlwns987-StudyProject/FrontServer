@@ -26,7 +26,7 @@ public class MemberServiceImpl implements MemberService {
         HttpEntity<SignUpRequestDto> entity = new HttpEntity<>(request, headers);
 
         ResponseEntity<ResponseDto<SignUpResponseDto>> response = restTemplate.exchange(
-                gatewayConfig.thirdUrl + "/v1/members",
+                gatewayConfig.getMemberUrl() + "/v1/api",
                 HttpMethod.POST,
                 entity,
                 new ParameterizedTypeReference<>() {

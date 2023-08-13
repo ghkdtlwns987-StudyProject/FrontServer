@@ -86,7 +86,7 @@ public class SecurityConfig {
      */
     @Bean
     public CustomLoginProcessingFilter customLoginProcessingFilter(){
-        CustomLoginProcessingFilter customLoginProcessingFilter = new CustomLoginProcessingFilter("/auth/login");
+        CustomLoginProcessingFilter customLoginProcessingFilter = new CustomLoginProcessingFilter("/authentication/login");
         customLoginProcessingFilter.setAuthenticationManager(customAuthenticationManager());
         customLoginProcessingFilter.setAuthenticationFailureHandler(authenticationFailureHandler());
 

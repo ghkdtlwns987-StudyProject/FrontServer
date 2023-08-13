@@ -36,7 +36,7 @@ public class ClassAdapter {
     public ResponseEntity<ClassResponseDto> getClassInfo(String loginId) {
         HttpHeaders httpHeaders = new HttpHeaders();
         URI uri = UriComponentsBuilder
-                .fromUriString(gatewayConfig.getThirdUrl())
+                .fromUriString(gatewayConfig.getMemberUrl())
                 .path("/{loginId}")
                 .encode()
                 .build()

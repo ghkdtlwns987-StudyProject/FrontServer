@@ -1,10 +1,13 @@
 server:
-  port: 8888
+  port: 8889
 
 logging:
   level:
-    web: debug
+    web: info
+
 spring:
+  application:
+    name: studyProject-FrontServer
   redis:
     lettuce:
       pool:
@@ -14,23 +17,21 @@ spring:
     host: localhost
     port: 6379
 
-oauth:
-  github:
-    clientId: aa551416af28b71b6aed
-    secret: f2ad88a7e7cc8855acfea0ab35657dccd28c0154
-    redirect: http://localhost:8888
-  google:
-    client-id: 460276430486-10is0l0i6qq1vn6mjjnqnrsfqjg673ss.apps.googleusercontent.com
-    client-secret: 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
-    redirect-uri: http://localhost:8888/login/oauth2/code/google
-    token-uri: https://oauth2.googleapis.com/token
-    resource-uri: https://www.googleapis.com/oauth2/v2/userinfo
-    scope: profile
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: false
+    service-url:
+      defaultZone: http://localhost:8761/eureka
 
 auth:
-  url: "http://localhost:9001/"
-third:
-  url: "http://localhost:9000/"
+  authentication:
+    url: http://localhost:8000/authentication
+  authorization:
+    url: http://localhost:8000/authorization
+api:
+  member:
+    url: http://localhost:8000/members
 
 # https://accounts.google.com/o/oauth2/auth?client_id=460276430486-10is0l0i6qq1vn6mjjnqnrsfqjg673ss.apps.googleusercontent.com460276430486-10is0l0i6qq1vn6mjjnqnrsfqjg673ss.apps.googleusercontent.com&redirect_uri=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&response_type=code&scope=https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile
 # https://darrenlog.tistory.com/40?category=945132

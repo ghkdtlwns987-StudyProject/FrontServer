@@ -7,9 +7,12 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @Getter
 public class GatewayConfig {
-    @Value("${third.url}")
-    public String thirdUrl;
+    @Value("${api.member.url}")
+    public String memberUrl;
 
-    @Value("${auth.url}")
-    public String authUrl;
+    @Value("${auth.authentication.url}")
+    public String authenticationUrl;
+
+    @Value("${auth.authorization.url}")
+    public String authorizationUrl;
 }

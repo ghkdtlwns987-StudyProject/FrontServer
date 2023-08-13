@@ -38,7 +38,7 @@ public class MemberAdapter {
         HttpEntity<LoginRequestDto> entity = new HttpEntity<>(loginRequestDto, headers);
 
         return restTemplate.exchange(
-            gatewayConfig.getAuthUrl() + "/auth/login",
+            gatewayConfig.getAuthenticationUrl() + "/login",
                 HttpMethod.POST,
                 entity,
                 Void.class
@@ -47,7 +47,7 @@ public class MemberAdapter {
 
     /**
      * Member의 정보를 가져옵니다.
-     * 정보를 가져올 때 인증 서버의 /auth/members/{loginId} 를 통해 가져오게 됩니다.
+     * 정보를 가져올 때 인증 서버의 /authentication/members/{loginId} 를 통해 가져오게 됩니다.
      * @param loginRequestDto 로그인 정보를 담은 dto 입니다.
      * @return MemberResponseDto
      */
@@ -57,8 +57,8 @@ public class MemberAdapter {
         HttpHeaders httpHeaders = new HttpHeaders();
 
         URI uri = UriComponentsBuilder
-                .fromUriString(gatewayConfig.thirdUrl)
-                .path("/v1/members/{loginId}")
+                .fromUriString(gatewayConfig.getMemberUrl())
+                .path("/v1/api/{loginId}")
                 .encode()
                 .build()
                 .expand(loginRequestDto.getLoginId())
@@ -92,8 +92,8 @@ public class MemberAdapter {
         HttpEntity<LogoutRequestDto> entity = new HttpEntity<>(logoutRequestDto, httpHeaders);
 
         URI uri = UriComponentsBuilder
-                .fromUriString(gatewayConfig.getAuthUrl())
-                .path("/auth/logout")
+                .fromUriString(gatewayConfig.getAuthenticationUrl())
+                .path("/logout")
                 .encode()
                 .build()
                 .toUri();
@@ -117,8 +117,8 @@ public class MemberAdapter {
         httpHeaders.add("UUID", uuid);
 
         URI uri = UriComponentsBuilder
-                .fromUriString(gatewayConfig.getAuthUrl())
-                .path("/auth/reissue")
+                .fromUriString(gatewayConfig.getAuthorizationUrl())
+                .path("/reissue")
                 .encode()
                 .build()
                 .toUri();
