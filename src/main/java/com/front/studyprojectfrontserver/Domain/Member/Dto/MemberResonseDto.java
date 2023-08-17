@@ -11,6 +11,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MemberResonseDto {
+    private Long id;
     private String userId;
     private String email;
     private String nickname;
